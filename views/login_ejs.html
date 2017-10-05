@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<%if (accessGranted) { %>
+<head>
+  <title>Bookstore: Logged in</title>
+</head>
+<body>
+  <h1>Bookstore: Logged in</h1><br/><br/>
+  Welcome <%= name %>, you have successfully logged in!
+  Click <a href="list">here</a> to order some books!
+</body>
+<% } %>
+
+<%if (!accessGranted) { %>
+<head><title>Bookstore: Login page</title></head>
+<body>
+  <h1>Bookstore: Login page</h1>
+  <%if (passwordIncorrect) { %>
+    <p><h3>Login failed! Please try again!</h3></p>
+  <% } %>
+  <form action="login" method="post">
+    <table width="75%">
+      <tbody>
+        <tr>
+          <td width="48%">Enter your name</td>
+          <td width="52%">
+            <input name="name" type="text">
+          </td>
+        </tr>
+        <tr>
+          <td width="48%">Enter your password</td>
+          <td width="52%">
+            <input name="pwd" type="text">
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      <input name="Submit" value="Login" type="submit">
+      <input name="Reset" value="Reset form" type="reset">
+    </p>
+  </form>
+</body>
+<% } %>
+</html>

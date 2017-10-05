@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>index</title>
+</head>
+<body>
+<br/>
+
+
+Please enter the following information:
+<form action="/purchase" method="post">
+
+<table border="0">
+	<tbody>
+		<tr>
+			<td>Name: <%= name %></td><td></td>
+		</tr>
+		<tr>
+			<td>Quantity</td>
+			<td><input type="text" name="Quantity" size="4" maxlength="12"></td>
+		</tr>
+	</tbody>
+</table>
+<br/>
+	<input type="submit" name="SUBMIT"/>
+	<br/><a href="/landing">LOGOUT</a>
+</form>
+
+</body>
+</html>
