@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>validate</title>
+
+    <meta name="GENERATOR" content="Rational Software Architect">
+</head>
+
+<body>
+
+
+
+
+
+
+    <h3>Thank you
+        <%=user.name%>
+    </h3>
+    <p>Your Order</p>
+    <table border="2" style="padding: 1in" cellpadding="2">
+        <tbody>
+            <tr>
+                <td><b>Book</b></td>
+                <td><b>Quantity</b></td>
+                <td><b>Unit Cost</b></td>
+                <td><b>Total Cost</b></td>
+            </tr>
+
+            <% for(var i=0; i<selectedBooks.length; i++) {%>
+                <tr>
+                    <td align="left">
+                        <%=selectedBooks[i].name%>
+                    </td>
+                    <td align="right">
+                        <%=selectedBooks[i].quantity%>
+                    </td>
+                    <td align="right">$
+                        <%=selectedBooks[i].pricePerUnit%>
+                    </td>
+                    <td align="right">$
+                        <%=selectedBooks[i].totalSetPrice%>
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+
+
+
+
+    <p>Total cost is $
+        <%=batchTotal%>
+    </p>
+    <p><br>Please enter your Credit Card information:
+    </p>
+    <form method="post" action="/confirm">
+        <table border="0">
+
+            <tbody>
+                <tr>
+                    <td>Credit Card</td>
+                    <td width="92"><select name="Creditcard">
+				<option>MasterCard</option>
+				<option>Visa</option>
+				<option>Amex</option>
+			</select></td>
+                </tr>
+                <tr>
+                    <td>Card Number</td>
+                    <td width="92"> <input type="text" name="Cardnumber" size="16"></td>
+                </tr>
+                <tr>
+                    <td>Express Delivery</td>
+                    <td width="92"><input type="checkbox" name="expressdelivery"></td>
+                </tr>
+            </tbody>
+        </table>
+        <input type="submit" name="Purchase" value="Purchase">
+        <br><a href="/landing">LOGOUT</a>
+    </form>
+
+</body>
+
+</html>
