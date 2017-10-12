@@ -12,9 +12,9 @@ function getSelBooksDetails(purchReq, allBooks) {
                     name: book.name,
                     quantity: purchReq.Quantity,
                     pricePerUnit: book.price,
-                    totalSetPrice: book.price * purchReq.Quantity
+                    totalSetPrice: (book.price * purchReq.Quantity).toFixed(2)
                 }];
-                selectedDetails.batchTotal = book.price * purchReq.Quantity;
+                selectedDetails.batchTotal = (book.price * purchReq.Quantity);
             }
         } else {
             purchReq.Books.forEach(function(requestedBook){
@@ -23,12 +23,12 @@ function getSelBooksDetails(purchReq, allBooks) {
                         name: book.name,
                         quantity: purchReq.Quantity,
                         pricePerUnit: book.price,
-                        totalSetPrice: (book.price * purchReq.Quantity)
+                        totalSetPrice: (book.price * purchReq.Quantity).toFixed(2)
                     });
                     selectedDetails.batchTotal += (book.price * purchReq.Quantity);
                 }
             });
-            
+
         }
     });
     return selectedDetails;
