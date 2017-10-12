@@ -3,13 +3,19 @@ var router = express.Router();
 
 router.use('/login', function (req, res, next) {
     var methods = ['GET', 'POST'];
-    if(methods.includes(req.method)){
-        next();
-    }else{
-        res.status(405);
-        res.render('../views/error405');
+    var referrer = req.get('referrer');
+    if (!referrer) {
+      res.status(304);
+      res.redirect('/landing');
     }
-    
+    else {
+      if(methods.includes(req.method)){
+          next();
+      }else{
+          res.status(405);
+          res.render('../views/error405');
+      }
+    }
 });
 
 router.delete('/login', function (req, res) {
