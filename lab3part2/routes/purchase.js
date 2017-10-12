@@ -23,15 +23,14 @@ function getSelBooksDetails(purchReq, allBooks) {
                         name: book.name,
                         quantity: purchReq.Quantity,
                         pricePerUnit: book.price,
-                        totalSetPrice: (book.price * purchReq.Quantity).toFixed(2)
+                        totalSetPrice: (book.price * purchReq.Quantity)
                     });
-                    selectedDetails.batchTotal += (book.price * purchReq.Quantity).toFixed(2);
+                    selectedDetails.batchTotal += (book.price * purchReq.Quantity);
                 }
             });
             
         }
     });
-    selectedDetails.batchTotal = selectedDetails.batchTotal.toFixed(2);
     return selectedDetails;
 }
 
@@ -41,13 +40,14 @@ router.use('/purchase', function (req, res, next) {
         next();
     } else {
         res.status(405);
-        res.send('<!DOCTYPE html><html lang="en"><head><title>Error: 405</title></head><body><h1>Error 405: Method Not Allowed</h1></body></html>');
+        res.render('../views/error405');
     }
 
 });
 
 router.post('/purchase', function (req, res) {
     var selectedDetails = getSelBooksDetails(req.body, res.locals.books);
+    req.session.totalAmtDue = selectedDetails.batchTotal;
     res.render('../views/purchase', {
         user: req.session.currentUser,
         selectedBooks: selectedDetails.selectedBooks,

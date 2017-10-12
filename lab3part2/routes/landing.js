@@ -7,7 +7,7 @@ router.use('/landing', function (req, res, next) {
         next();
     }else{
         res.status(405);
-        res.send('<!DOCTYPE html><html lang="en"><head><title>Error: 405</title></head><body><h1>Error 405: Method Not Allowed</h1></body></html>');
+        res.render('../views/error405');
     }
     
 });

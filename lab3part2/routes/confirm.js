@@ -7,7 +7,7 @@ router.use('/confirm', function (req, res, next) {
         next();
     } else {
         res.status(405);
-        res.send('<!DOCTYPE html><html lang="en"><head><title>Error: 405</title></head><body><h1>Error 405: Method Not Allowed</h1></body></html>');
+        res.render('../views/error405');
     }
 
 });
@@ -16,7 +16,8 @@ router.post('/confirm', function (req, res) {
     console.log(req.body);
     res.render('../views/confirm', {
         user: req.session.currentUser,
-        paymentDetails: req.body
+        paymentDetails: req.body,
+        amount: req.session.totalAmtDue
     });
 });
 
