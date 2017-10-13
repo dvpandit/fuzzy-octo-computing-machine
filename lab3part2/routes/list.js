@@ -1,19 +1,29 @@
 var express = require("express");
 var router = express.Router();
 
-router.use('/landing', function (req, res, next) {
+router.use('/list', function (req, res, next) {
     var methods = ['GET'];
-    if(methods.includes(req.method)){
-        next();
-    }else{
-        res.status(405);
-        res.render('../views/error405');
+    var referrer = req.get('referrer');
+    if (typeof referrer === 'undefined') {
+        req.session.destroy(function (err) {});
+        res.redirect('/landing');
+    } else {
+        if (methods.includes(req.method)) {
+            next();
+        } else {
+            res.status(405);
+            res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+            res.render('../views/error405');
+        }
     }
-    
 });
 
-router.get('/list', function(req, res){
-    res.render('../views/list', {books:res.locals.books,user:req.session.currentUser});
+router.get('/list', function (req, res) {
+    res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+    res.render('../views/list', {
+        books: res.locals.books,
+        user: req.session.currentUser
+    });
 });
 
 module.exports = router;

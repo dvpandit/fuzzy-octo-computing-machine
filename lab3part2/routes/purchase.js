@@ -1,53 +1,35 @@
 var express = require("express");
 var router = express.Router();
 
-function getSelBooksDetails(purchReq, allBooks) {
-    var selectedDetails = {};
-    selectedDetails.selectedBooks = [];
-    selectedDetails.batchTotal = 0;
-    allBooks.forEach(function (book) {
-        if (typeof purchReq.Books === 'string') {
-            if (book.id == purchReq.Books) {
-                selectedDetails.selectedBooks = [{
-                    name: book.name,
-                    quantity: purchReq.Quantity,
-                    pricePerUnit: book.price,
-                    totalSetPrice: (book.price * purchReq.Quantity).toFixed(2)
-                }];
-                selectedDetails.batchTotal = (book.price * purchReq.Quantity);
-            }
-        } else {
-            purchReq.Books.forEach(function(requestedBook){
-                if (book.id == requestedBook) {
-                    selectedDetails.selectedBooks.push({
-                        name: book.name,
-                        quantity: purchReq.Quantity,
-                        pricePerUnit: book.price,
-                        totalSetPrice: (book.price * purchReq.Quantity).toFixed(2)
-                    });
-                    selectedDetails.batchTotal += (book.price * purchReq.Quantity);
-                }
-            });
-
-        }
-    });
-    return selectedDetails;
-}
+var utilitis = require('../models/utilities');
 
 router.use('/purchase', function (req, res, next) {
     var methods = ['POST'];
-    if (methods.includes(req.method)) {
-        next();
+    var allowedPaths = ['list'];
+    var referrer = req.get('referrer');
+    console.log(referrer);
+    if (typeof referrer === 'undefined' || !allowedPaths.includes(referrer.split("/")[3])) {
+        if(typeof referrer === 'undefined'){
+            req.session.destroy(function(err) {});
+        }
+        res.status(304);
+        res.redirect('/landing');
     } else {
-        res.status(405);
-        res.render('../views/error405');
+        if (methods.includes(req.method)) {
+            next();
+        } else {
+            res.status(405);
+            res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+            res.render('../views/error405');
+        }
     }
 
 });
 
 router.post('/purchase', function (req, res) {
-    var selectedDetails = getSelBooksDetails(req.body, res.locals.books);
+    var selectedDetails = utilitis.getSelBooksDetails(req.body, res.locals.books);
     req.session.totalAmtDue = selectedDetails.batchTotal;
+    res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
     res.render('../views/purchase', {
         user: req.session.currentUser,
         selectedBooks: selectedDetails.selectedBooks,

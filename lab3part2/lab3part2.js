@@ -21,6 +21,7 @@ var listRoutes = require("./routes/list");
 var purchaseRoutes = require("./routes/purchase");
 var confirmRoutes = require("./routes/confirm");
 var err404Route = require("./routes/error404");
+var logoutRoute = require("./routes/logout");
 
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({
@@ -45,6 +46,7 @@ app.use(loginRoutes);
 app.use(listRoutes);
 app.use(purchaseRoutes);
 app.use(confirmRoutes);
+app.use(logoutRoute);
 
 app.use(err404Route);
 
