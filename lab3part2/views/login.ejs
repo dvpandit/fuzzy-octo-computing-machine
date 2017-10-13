@@ -24,13 +24,23 @@
         <tr>
           <td width="48%">Enter your name</td>
           <td width="52%">
+          <% if (blankName) {%>
+            <input name="name" type="text" style="border:1px solid #ff0000" placeholder="Required field!">
+          <% } %>
+          <% if (!blankName) {%>
             <input name="name" type="text">
+          <% } %>
           </td>
         </tr>
         <tr>
           <td width="48%">Enter your password</td>
           <td width="52%">
+          <% if (blankPwd) {%>
+            <input name="pwd" type="text" style="border:1px solid #ff0000" placeholder="Required field!">
+          <% } %>
+          <% if (!blankPwd) {%>
             <input name="pwd" type="text">
+          <% } %>
           </td>
         </tr>
       </tbody>
