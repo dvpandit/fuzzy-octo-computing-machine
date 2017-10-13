@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<%if (user.accessGranted) { %>
+<head>
+  <title>Bookstore: Logged in</title>
+</head>
+<body>
+  <h1>Bookstore: Logged in</h1><br/><br/>
+  Welcome <%= user.name %>, you have successfully logged in!
+  Click <a href="/list">here</a> to order some books!
+</body>
+<% } %>
+
+<%if (!user.accessGranted) { %>
+<head><title>Bookstore: Login page</title></head>
+<body>
+  <h1>Bookstore: Login page</h1>
+  <%if (user.passwordIncorrect) { %>
+    <p><h3>Login failed! Please try again!</h3></p>
+  <% } %>
+  <form action="login" method="post">
+    <table width="75%">
+      <tbody>
+        <tr>
+          <td width="48%">Enter your name</td>
+          <td width="52%">
+          <% if (blankName) {%>
+            <input name="name" type="text" style="border:1px solid #ff0000" placeholder="Required field!">
+          <% } %>
+          <% if (!blankName) {%>
+            <input name="name" type="text">
+          <% } %>
+          </td>
+        </tr>
+        <tr>
+          <td width="48%">Enter your password</td>
+          <td width="52%">
+          <% if (blankPwd) {%>
+            <input name="pwd" type="text" style="border:1px solid #ff0000" placeholder="Required field!">
+          <% } %>
+          <% if (!blankPwd) {%>
+            <input name="pwd" type="text">
+          <% } %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      <input name="Submit" value="Login" type="submit">
+      <input name="Reset" value="Reset form" type="reset">
+    </p>
+  </form>
+</body>
+<% } %>
+</html>
