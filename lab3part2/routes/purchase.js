@@ -5,7 +5,7 @@ var utilitis = require('../models/utilities');
 
 router.use('/purchase', function (req, res, next) {
     var methods = ['POST'];
-    var allowedPaths = ['list'];
+    var allowedPaths = ['list', 'purchase'];
     var referrer = req.get('referrer');
     console.log(referrer);
     if (typeof referrer === 'undefined' || !allowedPaths.includes(referrer.split("/")[3])) {
@@ -14,6 +14,18 @@ router.use('/purchase', function (req, res, next) {
         }
         res.status(304);
         res.redirect('/landing');
+    } else if (!req.body.Quantity || !req.body.Books) {
+      var blankQuantity = null;
+      var blankBooks = null;
+      req.body.Quantity ? blankQuantity = false : blankQuantity = true;
+      req.body.Books ? blankBooks = false : blankBooks = true;
+      res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+      res.render('../views/list', {
+          books: res.locals.books,
+          user: req.session.currentUser,
+          blankQuantity: blankQuantity,
+          blankBooks: blankBooks
+      });
     } else {
         if (methods.includes(req.method)) {
             next();

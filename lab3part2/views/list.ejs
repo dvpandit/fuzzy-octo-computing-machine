@@ -24,12 +24,23 @@
                 </tr>
                 <tr>
                     <td>Quantity</td>
-                    <td><input type="text" name="Quantity" size="4" maxlength="12" required></td>
+                    <td>
+                      <% if (blankQuantity) {%>
+                        <input type="text" name="Quantity" size="4" maxlength="12" style="border:1px solid #ff0000" placeholder="Reqd!"></td>
+                      <% } %>
+                    <% if (!blankQuantity) {%>
+                      <input type="text" name="Quantity" size="4" maxlength="12"></td>
+                    <% } %>
                 </tr>
                 <tr>
                     <td>Books</td>
                     <td>
-                    <select size=<%=books.length%> name="Books" multiple="multiple" required>
+                      <% if (blankBooks) {%>
+                        <select size=<%=books.length%> name="Books" multiple="multiple" style="border:3px solid #ff0000">
+                      <% } %>
+                    <% if (!blankBooks) {%>
+                      <select size=<%=books.length%> name="Books" multiple="multiple">
+                    <% } %>
 
                     <% for(var i=0; i<books.length; i++) {%>
                         <option value=<%=books[i].id%>><%=books[i].name%></option>
