@@ -45,13 +45,11 @@ router.post('/login', function (req, res) {
     console.log("I am inside login POST");
     var blankName = null;
     var blankPwd = null;
-    if (typeof req.session.currentUser === 'undefined') {
-        req.session.currentUser = {
-            name: req.body.name,
-            accessGranted: false,
-            passwordIncorrect: false
-        };
-    }
+    req.session.currentUser = {
+        name: req.body.name,
+        accessGranted: false,
+        passwordIncorrect: false
+    };
     if (req.body.name == req.body.pwd && req.body.name) {
         // Password correct
         console.log("Access Granted");
