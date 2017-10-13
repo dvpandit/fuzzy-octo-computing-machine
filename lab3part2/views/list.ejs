@@ -24,17 +24,17 @@
                 </tr>
                 <tr>
                     <td>Quantity</td>
-                    <td><input type="text" name="Quantity" size="4" maxlength="12"></td>
+                    <td><input type="text" name="Quantity" size="4" maxlength="12" required></td>
                 </tr>
                 <tr>
                     <td>Books</td>
                     <td>
-                    <select size=<%=books.length%> name="Books" multiple="multiple">
-			         
+                    <select size=<%=books.length%> name="Books" multiple="multiple" required>
+
                     <% for(var i=0; i<books.length; i++) {%>
                         <option value=<%=books[i].id%>><%=books[i].name%></option>
                     <% } %>
- 			        
+
 					</select>
                     </td>
                 </tr>
