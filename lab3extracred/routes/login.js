@@ -10,6 +10,10 @@ router.use('/login', function (req, res, next) {
         res.status(304);
         res.send('');
     } else if (typeof referrer === 'undefined') {
+        var cache = require('../models/cache').cache;
+        if (typeof req.session.currentUser !== 'undefined') {
+            cache.del(req.session.currentUser.name);
+        }
         req.session.destroy(function (err) {});
         res.redirect('/landing');
     } else {
@@ -54,9 +58,16 @@ router.post('/login', function (req, res) {
         // Password correct
         console.log("Access Granted");
         req.session.currentUser.accessGranted = true;
+        var cache = require('../models/cache').cache;
+        var prevState = cache.get(req.session.currentUser.name);
+        var hasPrevState = false;
+        if (prevState !== null) {
+            hasPrevState = true;
+        }
         res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
         res.render('../views/login', {
-            user: req.session.currentUser
+            user: req.session.currentUser,
+            hasPrevState: hasPrevState
         });
     } else {
         // Password incorrect

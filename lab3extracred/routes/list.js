@@ -5,6 +5,8 @@ router.use('/list', function (req, res, next) {
     var methods = ['GET'];
     var referrer = req.get('referrer');
     if (typeof referrer === 'undefined') {
+        var cache = require('../models/cache').cache;
+        cache.del(req.session.currentUser.name);
         req.session.destroy(function (err) {});
         res.redirect('/landing');
     } else {

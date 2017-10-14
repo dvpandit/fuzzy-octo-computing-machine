@@ -17,6 +17,7 @@ var bodyParser = require('body-parser');
 
 var landingRoutes = require("./routes/landing");
 var loginRoutes = require("./routes/login");
+var resumeRoutes = require("./routes/resume");
 var listRoutes = require("./routes/list");
 var purchaseRoutes = require("./routes/purchase");
 var confirmRoutes = require("./routes/confirm");
@@ -43,6 +44,7 @@ app.use(function (req, res, next) {
 
 app.use(landingRoutes);
 app.use(loginRoutes);
+app.use(resumeRoutes);
 app.use(listRoutes);
 app.use(purchaseRoutes);
 app.use(confirmRoutes);
