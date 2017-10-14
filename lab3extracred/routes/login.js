@@ -30,16 +30,24 @@ router.get('/login', function (req, res) {
     console.log("I am inside login GET");
     var blankName = null;
     var blankPwd = null;
+    var hasPrevState = false;
     if (typeof req.session.currentUser === 'undefined') {
         req.session.currentUser = {
             name: req.body.name,
             accessGranted: false,
             passwordIncorrect: false
         };
+    }else{
+        var cache = require('../models/cache').cache;
+        var prevState = cache.get(req.session.currentUser.name);
+        if (prevState !== null) {
+            hasPrevState = true;
+        }
     }
     res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
     res.render('../views/login', {
         user: req.session.currentUser,
+        hasPrevState: hasPrevState,
         blankName: blankName,
         blankPwd: blankPwd
     });
