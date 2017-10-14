@@ -7,7 +7,10 @@
 <body>
   <h1>Bookstore: Logged in</h1><br/><br/>
   Welcome <%= user.name %>, you have successfully logged in!
-  Click <a href="/list">here</a> to order some books!
+  Click <a href="/list">here</a> to start a new transaction.
+<%if (hasPrevState) { %>
+  <p>Click <a href="/resume">here</a> to resume your previous transaction.</p>
+    <% } %>
 </body>
 <% } %>
 
