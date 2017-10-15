@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0036)http://lead2.poly.asu.edu:8080//list -->
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <title>index</title>
+
+    <meta name="GENERATOR" content="Rational Software Architect">
+</head>
+
+<body>
+
+    <br> Please the following information:
+
+
+    <form action="/add_book" method="post">
+
+        <table border="0">
+            <tbody>
+                <tr>
+                    <td>Name:</td>
+                    <td><%=user.name%></td>
+                </tr>
+                <tr>
+                    <td>Id</td>
+                    <td>
+                      <% if (blankQuantity) {%>
+                        <input type="text" name="Quantity" size="7" maxlength="12" style="border:1px solid #ff0000" placeholder="Reqd!"></td>
+                      <% } %>
+                    <% if (!blankQuantity) {%>
+                      <input type="text" name="Quantity" size="7" maxlength="12"></td>
+                    <% } %>
+                </tr>
+                <tr>
+                    <td>Name of book:</td>
+                    <td>
+                      <% if (blankQuantity) {%>
+                        <input type="text" name="Quantity" size="20" style="border:1px solid #ff0000" placeholder="Reqd!"></td>
+                      <% } %>
+                    <% if (!blankQuantity) {%>
+                      <input type="text" name="Quantity" size="20"></td>
+                    <% } %>
+                </tr>
+                <tr>
+                    <td>Price</td>
+                    <td>
+                      <% if (blankQuantity) {%>
+                        <input type="text" name="Quantity" size="7" maxlength="12" style="border:1px solid #ff0000" placeholder="Reqd!"></td>
+                      <% } %>
+                    <% if (!blankQuantity) {%>
+                      <input type="text" name="Quantity" size="7" maxlength="12"></td>
+                    <% } %>
+                </tr>
+                <tr>
+                    <td>URL</td>
+                    <td>
+                      <% if (blankQuantity) {%>
+                        <input type="text" name="Quantity" size="25" style="border:1px solid #ff0000" placeholder="Reqd!"></td>
+                      <% } %>
+                    <% if (!blankQuantity) {%>
+                      <input type="text" name="Quantity" size="25"></td>
+                    <% } %>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <input type="submit" name="SUBMIT">
+        <br><a href="/logout">LOGOUT</a>
+    </form>
+
+
+
+</body>
+
+</html>
